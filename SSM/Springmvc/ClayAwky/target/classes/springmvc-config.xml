@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+<!--配置前端控制器放行静态资源html/css/js等否则静态资源是无法访问的-->
+    <mvc:default-servlet-handler />
+        <!--配置注解驱动用于识别注解比如@Controller-->
+    <mvc:annotation-driven/>
+        <!--配置需要扫描的包spring自动去扫描 base-spring下的类
+        如果扫描到类上有@Controller@Service@Componet等注解
+        将会自动将类注册为bean
+        -->
+    <context:component-scan base-package="com.example.clayawky"/>
+ <!--
+ 配置内部资源试图解析其
+ prefix:配置路径前缀
+ suffix配置文件后缀
+ 将请求转向/WEB-INFO/pages/home.jsp页面
+  -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/pages/" />
+        <property name="suffix" value=".jsp"/>
+    </bean>
+</beans>

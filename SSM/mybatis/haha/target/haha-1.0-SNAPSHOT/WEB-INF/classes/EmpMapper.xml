@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="EmpMapper">
+<!--不同mapper文件的Namespace的值应该改保证唯一-->
+<!--通过select/inset/delete/update标签生命要执行的SQL语句
+在不同文件中可以通过namespace+sql标签的id定位到要执行那一条SQL语句
+-->
+   <!--id用于指定一个唯一编号，要求id值在当前文件中不能重复
+   resultType用于指定一个类型用于该类型封装SQL语句查询的结果
+  即使最终返回的结果是集合（List<emp>）,resultToe也只是需要指定集合中的泛型即可
+   -->+
+    <update id="insert">
+        insert into emp value(null,'刘德华11','歌手',8888)
+    </update>
+    <update id="update">
+     update emp set job="演员",salary=888888 where name="刘德华"
+    </update>
+    <select id="findAll" resultType="com.tedo.pojp.Emp">
+select * from emp;
+</select>
+
+    <select id="findById" resultType="com.tedo.pojp.Emp">
+    select * from emp  where id =#{id}
+    </select>
+    <!--如果传过来的是一个map集合那么占位符就会通过名称当作key去map集合中查找对应的Value
+    Emp emp =new  Emp()
+    如果穿过来的参数是EMP对象封装的将会通过占位符中的名称拼接出对应的getXxx方法通过get
+    Xxx获取emp中对应的属性的值
+
+    -->
+    <update id="updatetest">
+        insert into emp value(num;#{name},#{job},#{salary})
+    </update>
+</mapper>

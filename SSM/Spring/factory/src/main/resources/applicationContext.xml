@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--将EmpService接口的子类申明到Spring容器中，让Spring容器创建该类的实例
+id值一定是唯一的
+-->
+    <!--
+    使用springIOC
+    -->
+    <bean id="userinfo" class="com.example.pojo.userinfo"></bean>
+<bean id="empService1" class="com.example.service.EmpServicelmpl"></bean>
+    <!--
+    scope属性 值默认为singleton表示通过spring获取的当前实例是单实例的
+    将值改为Propertype则表示通过sprig获取当前实例是多实例的
+    -->
+<!--    <bean id="user" class="com.example.pojo.User" scope="prototype">-->
+<!--        &lt;!&ndash;-->
+<!--        通过set方法给对象的属性赋值-->
+<!--        name是指要赋值给谁-->
+<!--        value是指要赋什么值-->
+<!--        ref是将UserInfo类申明到Spring容器中由Spring 容器创建该类的实例对象-->
+<!--        &ndash;&gt;-->
+<!--        <property name="name" value="陈阿三"></property>-->
+<!--        <property name="age" value="18"></property>-->
+<!--        <property name="info" ref="userinfo"></property>-->
+<!--    </bean>-->
+    <!--
+    通过构造方法给对象发属性赋值
+    -->
+
+
+</beans>

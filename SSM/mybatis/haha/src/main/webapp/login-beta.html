@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./login.css" type="text/css">
+  <link rel="stylesheet" href="./animation.css" type="text/css">
+  
+</head>
+
+
+<body id="body" onload="img()">
+  <div id="dig"></div>
+  <div id="ball" >
+    <div class="ball-body" >
+      <div id="load">
+        <div class="di" id="headText">
+          <h2 id="h">Welcome</h2>
+        </div>
+        <div class="di" id="UserInp">
+          <input id="user" type="text" placeholder="Uname" value="">
+        </div>
+        <div class="di" id="pswdInp">
+          <input id="pswd" type="password" placeholder="Password" value="">
+        </div>
+        <div class="di" id="login">
+          <button id="btn" onclick="sell()">Login</button>
+        </div>
+        <div id="helpmain">
+          <div class="did" onclick="opened()">
+            <div id="what">?</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="zc">
+      <div class></div>
+    </div>
+  </div>
+</body>
+<script>
+  setTimeout(() => {
+    var a = 0
+    setInterval(() => {
+      a++
+      if (a === 1) {
+        headText.className = 'di2';
+        login.className = 'di1';
+      } else if (a === 2) {
+        UserInp.className = 'di3';
+        pswdInp.className = 'di4';
+        helpmain.className = "di1"
+      } else if (a === 3) {
+        clearInterval
+      }
+    }, 100)
+  }, 1400);
+  function img() {
+    var imgarr = ['./img/01.jpg', './img/02.jpg', './img/03.jpg',
+      './img/04.jpg', './img/05.jpg', './img/06.jpg',
+      './img/07.jpg', './img/08.jpg', './img/09.jpg',
+      './img/10.jpg', './img/11.jpg', './img/12.jpg',
+      './img/13.jpg', './img/14.jpg', './img/15.jpg']
+    var Imgmath = Math.floor(Math.random() * imgarr.length)
+    body.style.backgroundImage = `url(${imgarr[Imgmath]})`
+    body.style.backgroundSize = ' cover';
+
+  }
+  function opened() {
+    document.getElementById('helpmain').innerHTML = '<div class="did1" id="help"></div>'
+    help.innerHTML = `<span id="close" onclick="closed()">x</span> 
+    <a class="lik" id="falselogin" href="">无法登陆</a>
+    <a class="lik" id="forgetPswd" href="">忘记密码</a> 
+    <a class="lik1" id="createUser" onclick="CreateUser()">注册账号</a>`
+  }
+  function closed(){
+    document.getElementById('helpmain').innerHTML = `<div class="did" onclick="opened()">
+            <div id="what">?</div>
+          </div>`
+  }
+  function CreateUser(){
+    
+  }
+  function sell() {
+    var xhr = new XMLHttpRequest();
+    var uname = document.getElementById("user").value
+    var pswd = document.getElementById("pswd").value
+    var form = "uname=" + uname + "&upwd=" + pswd
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        var result = xhr.responseText;
+        // result = JSON.parse(result);
+        console.log(result)
+        if (result == -1) {
+          window.alert("账号或者密码错误");
+        } else if (result == 1) {
+          window.alert("登录成功")
+        } else {
+          window.alert("出现未知错误请联系管理员")
+        }
+      }
+    }
+    xhr.open("POST", "/sqltest", true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+    xhr.send(form)
+  }
+</script>
+
+</html>

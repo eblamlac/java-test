@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.Mysqlaa">
+<delete id="deleteObjects1">
+    delete from tb_order
+        <where>
+        id in
+<choose>
+    <when test="ids!=null and ids.length>0">
+        <foreach collection="ids"
+                 open="("
+                 close=")"
+                 separator=","
+                 item="id">
+            #{id}
+        </foreach>
+    </when>
+<otherwise>
+ 1=2
+</otherwise>
+                               </choose>
+        </where>
+</delete>
+    <delete id="deleteObjects">
+    delete from tb_order where id in
+<if test="ids!=null and ids.length>0">
+    <foreach collection="ids"
+             open="("
+             close=")"
+             separator=","
+             item="id">
+        #{id}
+    </foreach>
+</if>
+<if test="ids=null or ids.length=0">
+    where 1=2
+</if>
+
+
+</delete>
+
+    <!--方案4 从代码的性能角度优化in的使用-->
+    <delete id="deleteObjects2">
+        delete from tb_order
+<where>
+    <choose>
+        <when test="ids!=null and ids.length>0">
+            <foreach collection="ids"
+                     separator=","
+                     item="id">
+                id=#{id}
+            </foreach>
+        </when>
+<otherwise>
+1=2
+</otherwise>
+    </choose>
+</where>
+    </delete>
+</mapper>
